@@ -21,3 +21,8 @@ Route::get('/addperincian', function () {
     return view('addperincian');
 })->name('addperincian');
 
+Route::get('/manajemenkapal', function () {
+    return view('manajemenkapal');
+})->name('manajemenkapal');
+
+

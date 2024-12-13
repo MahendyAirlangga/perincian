@@ -55,18 +55,18 @@
 
                 <li class="sidebar-item">
                     <a href="{{ route('addperincian') }}" class='sidebar-link'>
-                        <i class="bi bi-stack"></i>
+                        <i class="bi bi-box-seam"></i>
                         <span>perincian</span>
                     </a>
                 </li>
-
                 
-                {{-- <div class="footer clearfix mb-0 text-muted text-center">
-                    <div class="float-center" style="position: absolute; right:65px; bottom:5px;">
-                        <p>&copy; Copyright <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            by <a href="">Dimas</a></p>
-                    </div>
-                </div> --}}
+                <li class="sidebar-item">
+                    <a href="{{ route('manajemenkapal') }}" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Manajemen kapal</span>
+                    </a>
+                </li>
+
             </ul>
         </div>
     </div>
