@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,7 @@ Route::get('/addperincian', function () {
 Route::get('/manajemenkapal', function () {
     return view('manajemenkapal');
 })->name('manajemenkapal');
+
+Route::post('/addbarang',[BarangController::class,'add_barang'])->name('add.barang');
 
 

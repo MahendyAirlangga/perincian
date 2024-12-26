@@ -6,9 +6,8 @@
     <h2 class="mb-3">Form Tambah Data Barang</h2>
     
     <!-- Form untuk Nama Merk, Kapal, Tujuan, dan Tanggal -->
-    <form id="barangForm">
+    <form action="{{ route('add.barang') }}" method="post" id="barangForm">
         @csrf
-    
         <!-- Bagian Informasi Utama -->
         <div class="row">
             <div class="col-md-6">
