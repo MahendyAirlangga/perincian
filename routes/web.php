@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/ships', [ShipController::class, 'index'])->name('index.kapal');
 Route::post('/ships/storeShip', [ShipController::class, 'storeShip'])->name('store.ship');
+Route::put('/ship/update/{id}', [ShipController::class, 'update'])->name('update.ship');
+Route::delete('/ship/delete/{id}', [ShipController::class, 'destroy'])->name('delete.ship');
 
 Route::get('/addPerincianIndex', [BarangController::class, 'indexaddperincian'])->name('index.add.perincian');
 Route::get('/', [BarangController::class, 'indexPerincian'])->name('index.perincian');
@@ -24,3 +26,4 @@ Route::post('/addbarang',[BarangController::class,'add_barang'])->name('add.bara
 
 
 Route::get('/download-pdf/{id}', [BarangController::class, 'downloadPdf'])->name('download.pdf');
+
