@@ -6,6 +6,7 @@ use App\Models\DetailBarang;
 use App\Models\Barang;
 use App\Models\Ship;
 use Illuminate\Http\Request;
+use Mpdf\Mpdf;
 
 class BarangController extends Controller
 {
@@ -78,5 +79,21 @@ class BarangController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->back()->with('success', 'Data barang berhasil disimpan.');
+    }
+
+
+    public function downloadPdf($id)
+    {
+        $barang = Barang::with('details')->findOrFail($id);
+        $html = view('rekappdf', compact('barang'))->render();
+
+        $mpdf = new Mpdf();
+        $mpdf->WriteHTML($html);
+        $filename = 'Detail_Barang_' . $barang->nama_merk . '.pdf';
+
+        return response()->streamDownload(
+            fn () => print($mpdf->Output('', 'I')),
+            $filename
+        );
     }
 }

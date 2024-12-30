@@ -14,14 +14,15 @@
             <div class="card-body">
                 <!-- Tabel Barang -->
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" id="table1">
                         <thead>
                             <tr>
                                 <th>Nama Merk</th>
                                 <th>Kapal</th>
                                 <th>Tujuan</th>
                                 <th>Tanggal</th>
-                                <th>Total Pembayaran</th>
+                                {{-- <th>Total Pembayaran</th> --}}
+                                <th>Sisa Pembayaran</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -33,7 +34,8 @@
                                     <td>{{ $barang->kapal }}</td>
                                     <td>{{ $barang->tujuan }}</td>
                                     <td>{{ $barang->tanggal }}</td>
-                                    <td>{{ number_format($barang->total_pembayaran, 2, ',', '.') }}</td>
+                                    {{-- <td>{{ number_format($barang->total_pembayaran, 2, ',', '.') }}</td> --}}
+                                    <td>{{ number_format($barang->sisa_pembayaran, 2, ',', '.') }}</td>
                                     <td>
                                         <span class="badge {{ $barang->sisa_pembayaran > 0 ? 'bg-danger' : 'bg-success' }}">
                                             {{ $barang->sisa_pembayaran > 0 ? 'Belum Lunas' : 'Lunas' }}
@@ -51,60 +53,99 @@
 
                 <!-- Modal untuk Detail Barang -->
                 @foreach($barangs as $barang)
-                    <div class="modal fade" id="detailModal{{ $barang->id }}" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="detailModalLabel">Detail Barang: {{ $barang->nama_merk }}</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal fade" id="detailModal{{ $barang->id }}" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title text-white" id="detailModalLabel">
+                                    Detail Barang: {{ $barang->nama_merk }}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+            
+                            <!-- Modal Body -->
+                            <div class="modal-body">
+                                <!-- Informasi Barang -->
+                                <div class="mb-3">
+                                    <h6 class="text-primary">Informasi Barang</h6>
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <strong>Nama Merk:</strong> {{ $barang->nama_merk }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Kapal:</strong> {{ $barang->kapal }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Tujuan:</strong> {{ $barang->tujuan }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Tanggal:</strong> {{ $barang->tanggal }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Total Pembayaran:</strong> Rp{{ number_format($barang->total_pembayaran, 2, ',', '.') }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Uang Muka:</strong> Rp{{ number_format($barang->dp_pertama, 2, ',', '.') }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Biaya Lain-Lain:</strong> Rp{{ number_format($barang->biaya_lain, 2, ',', '.') }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Sisa Pembayaran:</strong> Rp{{ number_format($barang->sisa_pembayaran, 2, ',', '.') }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Status:</strong>
+                                            <span class="badge {{ $barang->sisa_pembayaran > 0 ? 'bg-danger' : 'bg-success' }}">
+                                                {{ $barang->sisa_pembayaran > 0 ? 'Belum Lunas' : 'Lunas' }}
+                                            </span>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="modal-body">
-                                    <!-- Menampilkan informasi dari Barang -->
-                                    <p><strong>Nama Merk:</strong> {{ $barang->nama_merk }}</p>
-                                    <p><strong>Kapal:</strong> {{ $barang->kapal }}</p>
-                                    <p><strong>Tujuan:</strong> {{ $barang->tujuan }}</p>
-                                    <p><strong>Tanggal:</strong> {{ $barang->tanggal }}</p>
-                                    <p><strong>Total Pembayaran: </strong>{{ number_format($barang->total_pembayaran, 2, ',', '.') }}</p>
-                                    <p><strong>Status:</strong>
-                                        <span class="badge {{ $barang->sisa_pembayaran > 0 ? 'bg-danger' : 'bg-success' }}">
-                                            {{ $barang->sisa_pembayaran > 0 ? 'Belum Lunas' : 'Lunas' }}
-                                        </span>
-                                    </p>
-                                    <hr>
-
-                                    <!-- Menampilkan Detail Barang terkait -->
-                                    <h6>Detail Barang:</h6>
-                                    <table class="table">
-                                        <thead>
-                                            <tr class="text-center">
-                                                <th>Tanggal Barang</th>
-                                                <th>Colis</th>
-                                                <th>Jenis Barang</th>
-                                                <th>Pengirim</th>
-                                                <th>Ukuran (m³)</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($barang->details as $detail) <!-- Relasi barang->detailBarangs -->
-                                                <tr class="text-center">
-                                                    <td>{{ $detail->tanggal_barang }}</td>
-                                                    <td>{{ $detail->colis }}</td>
-                                                    <td>{{ $detail->jenis_barang }}</td>
-                                                    <td>{{ $detail->pengirim }}</td>
-                                                    <td>{{ number_format($detail->m3, 2) }}</td>
+            
+                                <!-- Detail Barang Terkait -->
+                                <div class="mt-4">
+                                    <h6 class="text-primary">Detail Barang</h6>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead class="table-primary text-center">
+                                                <tr>
+                                                    <th>Tanggal Barang</th>
+                                                    <th>Colis</th>
+                                                    <th>Jenis Barang</th>
+                                                    <th>Pengirim</th>
+                                                    <th>Ukuran (m³)</th>
                                                 </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($barang->details as $detail)
+                                                    <tr class="text-center">
+                                                        <td>{{ $detail->tanggal_barang }}</td>
+                                                        <td>{{ $detail->colis }}</td>
+                                                        <td>{{ $detail->jenis_barang }}</td>
+                                                        <td>{{ $detail->pengirim }}</td>
+                                                        <td>{{ number_format($detail->m3, 2) }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                </div>
+                            </div>
+            
+                            <!-- Modal Footer -->
+                            <div class="modal-footer">
+                                <a href="{{ route('download.pdf', $barang->id) }}" class="btn btn-success">
+                                    <i class="bi bi-download"></i> Download PDF
+                                </a>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle"></i> Close
+                                </button>
                             </div>
                         </div>
                     </div>
-                @endforeach
-
+                </div>
+            @endforeach
             </div>
         </div>
     </section>

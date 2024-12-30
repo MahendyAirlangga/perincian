@@ -23,3 +23,4 @@ Route::get('/', [BarangController::class, 'indexPerincian'])->name('index.perinc
 Route::post('/addbarang',[BarangController::class,'add_barang'])->name('add.barang');
 
 
+Route::get('/download-pdf/{id}', [BarangController::class, 'downloadPdf'])->name('download.pdf');

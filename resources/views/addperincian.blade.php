@@ -4,7 +4,12 @@
 @section('content')
 <div class="container mt-4">
     <h2 class="mb-3">Form Tambah Data Barang</h2>
-
+    @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+    @if (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
     <!-- Form untuk Nama Merk, Kapal, Tujuan, dan Tanggal -->
     <form action="{{ route('add.barang') }}" method="post" id="barangForm">
         @csrf
@@ -55,14 +60,14 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><input type="date" class="form-control" name="tanggal_barang[]" placeholder="Pilih tanggal"></td>
-                        <td><input type="text" class="form-control" name="colis[]" placeholder="colis"></td>
-                        <td><input type="text" class="form-control" name="jenis_barang[]" placeholder="Jenis Barang"></td>
-                        <td><input type="text" class="form-control" name="pengirim[]" placeholder="pengirim"></td>
-                        <td><input type="number" class="form-control panjang" name="panjang[]" step="0.01" placeholder="(m)"></td>
-                        <td><input type="number" class="form-control lebar" name="lebar[]" step="0.01" placeholder="(m)"></td>
-                        <td><input type="number" class="form-control tinggi" name="tinggi[]" step="0.01" placeholder="(m)"></td>
-                        <td><input type="number" class="form-control" name="total_barang[]" placeholder="total barang"></td>
+                        <td><input type="date" class="form-control" name="tanggal_barang[]" placeholder="Pilih tanggal" required></td>
+                        <td><input type="text" class="form-control" name="colis[]" placeholder="colis" required></td>
+                        <td><input type="text" class="form-control" name="jenis_barang[]" placeholder="Jenis Barang" required></td>
+                        <td><input type="text" class="form-control" name="pengirim[]" placeholder="pengirim" required></td>
+                        <td><input type="number" class="form-control panjang" name="panjang[]" step="0.01" placeholder="(m)" required></td>
+                        <td><input type="number" class="form-control lebar" name="lebar[]" step="0.01" placeholder="(m)" required></td>
+                        <td><input type="number" class="form-control tinggi" name="tinggi[]" step="0.01" placeholder="(m)" required></td>
+                        <td><input type="number" class="form-control" name="total_barang[]" placeholder="total barang" required></td>
                         <td><input type="number" class="form-control m3" name="m3[]" step="0.01" placeholder="(m&sup3;)" readonly></td>
                         <td>
                             <button type="button" class="btn btn-danger btn-sm removeRow">Hapus</button>
