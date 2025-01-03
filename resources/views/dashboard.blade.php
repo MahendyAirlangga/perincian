@@ -44,6 +44,7 @@
                                     <td>
                                         <!-- Tombol untuk membuka modal -->
                                         <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#detailModal{{ $barang->id }}">Lihat Detail</button>
+                                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $barang->id }}">Edit</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -146,6 +147,32 @@
                     </div>
                 </div>
             @endforeach
+            @foreach($barangs as $barang)
+                <div class="modal fade" id="editModal{{ $barang->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form action="{{ route('update.payment', $barang->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-header bg-warning text-white">
+                                    <h5 class="modal-title" id="editModalLabel">Edit Sisa Pembayaran: {{ $barang->nama_merk }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="sisa_pembayaran">Sisa Pembayaran</label>
+                                        <input type="number" step="0.01" class="form-control" id="sisa_pembayaran" name="sisa_pembayaran" value="{{ $barang->sisa_pembayaran }}" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                    <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </section>

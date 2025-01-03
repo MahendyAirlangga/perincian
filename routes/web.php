@@ -23,7 +23,10 @@ Route::delete('/ship/delete/{id}', [ShipController::class, 'destroy'])->name('de
 Route::get('/addPerincianIndex', [BarangController::class, 'indexaddperincian'])->name('index.add.perincian');
 Route::get('/', [BarangController::class, 'indexPerincian'])->name('index.perincian');
 Route::post('/addbarang',[BarangController::class,'add_barang'])->name('add.barang');
+Route::put('/barang/{id}/update', [BarangController::class, 'updatePayment'])->name('update.payment');
 
 
 Route::get('/download-pdf/{id}', [BarangController::class, 'downloadPdf'])->name('download.pdf');
+
+
 

@@ -96,4 +96,16 @@ class BarangController extends Controller
             $filename
         );
     }
+
+    public function updatePayment(Request $request, $id)
+    {
+        $request->validate([
+            'sisa_pembayaran' => 'required|numeric',
+        ]);
+        $barang = Barang::findOrFail($id);
+        $barang->sisa_pembayaran = $request->sisa_pembayaran;
+        $barang->save();
+
+        return redirect()->back()->with('success', 'Sisa pembayaran berhasil diperbarui!');
+    }
 }
