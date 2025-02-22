@@ -7,7 +7,7 @@
                     <a href="" class="d-flex align-items-center text-decoration-none">
                         {{-- <img src="{{ asset('style/assets/compiled/png/webapp_image.png') }}" alt="Logo"
                             style="width: 70px; height: 70px;"> --}}
-                        <span class="ms-2 fs-4">Minols</span>
+                        <span class="ms-2 fs-4">Perincian</span>
                     </a>
                 </div>
             </div>
